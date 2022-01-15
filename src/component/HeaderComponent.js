@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem} from 'reactstrap';
+import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import logo from '../dogcat.svg'
 class Header extends Component {
@@ -21,7 +21,7 @@ class Header extends Component {
         return (
 
             <div>
-                <Navbar dark expand="md">
+                <Navbar light expand="md">
                     <div className="container">
                         <div>
                             <NavbarBrand className="mr-auto navbar-brand" href="/"><img src={logo} height="40" width="51" alt='Ristorante Con Fusion' /></NavbarBrand>

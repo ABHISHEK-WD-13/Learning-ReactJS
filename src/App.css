@@ -1,3 +1,6 @@
+html{
+    background-color: #F2F3F4;
+}
 .row-header{
     margin:0px auto;
     padding:0px auto;
@@ -11,7 +14,7 @@
 }
 
 .footer{
-    background-color: #d3d3d3;
+    background-color: #FAF8D9;
     margin:0px auto;
     padding: 20px 0px 20px 0px;
 }
@@ -28,7 +31,12 @@ address{
     color:#0f0f0f;
 }
 
-.navbar-dark {
+.navbar-light {
     color:rgb(0, 0, 0);
-    background-color: #a1994a;
+    background-color: #FAF8D9;
+}
+@media only screen and (min-width:1000px){
+.leader{
+    margin-left:50px;
+}
 }

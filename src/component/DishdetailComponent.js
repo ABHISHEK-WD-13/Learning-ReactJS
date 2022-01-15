@@ -18,10 +18,10 @@ function RenderDish({dish}) {
             <div></div>
         );
 }
-function RenderComments({dish}){
-    console.log(dish);
-    if(dish!=null){
-        const comm = dish.comments.map((C) => {
+function RenderComments({comments}){
+    if(comments.length!==0){
+        console.log("in comments");
+        const comm = comments.map((C) => {
             return (
                 <li key={C.id}>
                     <p>{C.comment}</p>
@@ -50,7 +50,7 @@ function DishDetail(props){
             <RenderDish dish={props.dish}/>
         </div>
         <div  className="col-12 col-md-5 m-1">
-            <RenderComments dish={props.dish}/>
+            <RenderComments comments={props.comments}/>
             </div>
         </div>
         </div>
