@@ -5,6 +5,7 @@ import {
 } from 'reactstrap';
 import CommentForm from './CommentFormComponent';
 
+
 function RenderDish({ dish }) {
     if (dish != null)
         return (
@@ -13,6 +14,7 @@ function RenderDish({ dish }) {
                 <CardBody>
                     <CardTitle>{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
+
                 </CardBody>
             </Card>
         );
@@ -21,9 +23,8 @@ function RenderDish({ dish }) {
             <div></div>
         );
 }
-function RenderComments({ comments }) {
+function RenderComments({ comments, store, dishId }) {
     if (comments.length !== 0) {
-        console.log("in comments");
         const comm = comments.map((C) => {
             return (
                 <li key={C.id}>
@@ -36,6 +37,7 @@ function RenderComments({ comments }) {
             <Card>
                 <h4>Comments</h4>
                 <ul className='list-unstyled'>{comm}</ul>
+                <CommentForm store={store} dishId={dishId} />
             </Card>
         );
     }
@@ -53,9 +55,9 @@ function DishDetail(props) {
                     <RenderDish dish={props.dish} />
                 </div>
                 <div className="col-12 col-md-5 m-1">
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments} store={props.store} dishId={props.dishId} />
                     <br />
-                    <CommentForm />
+
                 </div>
 
             </div>

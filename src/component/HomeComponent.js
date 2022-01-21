@@ -17,7 +17,6 @@ function RenderCard({item}) {
 
 }
 function Home(props) {
-  console.log("HOME");
     return(
       
         <div className="container">

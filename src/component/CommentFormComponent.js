@@ -3,21 +3,22 @@ import {
     Button, Modal, ModalHeader, ModalBody, Row, Col, Label
 } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { addComment } from '../Redux/ActionCreator';
+import { useDispatch } from 'react-redux'
 
-function CommentForm() {
+function CommentForm(props) {
+    var dispatch = useDispatch();
+
     var [Commentstate, setCommentCommentstate] = useState({ isCommentModalOpen: false });
     const required = (val) => val && val.length;
     const maxLength = (len) => (val) => !(val) || (val.length <= len);
     const minLength = (len) => (val) => val && (val.length >= len);
     function toggleCommentModal() {
         var currModal = Commentstate.isCommentModalOpen;
-        console.log(Commentstate);
-        console.log(currModal);
         setCommentCommentstate({ ...Commentstate, isCommentModalOpen: !currModal });
-        console.log(Commentstate);
     }
     function handleCommentSubmit(values) {
-        alert('Current State is: ' + JSON.stringify(values));
+        dispatch(addComment(props.dishId, values.rate, values.author, values.comment));
     }
     return (
         <div>
@@ -28,7 +29,7 @@ function CommentForm() {
                         <Label htmlFor='rate'>Rating</Label>
                         <Row className='form-group'>
                             <Col>
-                                <Control.select model=".rate" name="rate"
+                                <Control.select defaultValue={1} model=".rate" name="rate"
                                     className="form-control">
                                     <option>1</option>
                                     <option>2</option>
@@ -39,14 +40,14 @@ function CommentForm() {
                             </Col>
                         </Row>
                         <Row className="form-group">
-                            <Label htmlFor='username'>Your Name</Label>
+                            <Label htmlFor='author'>Your Name</Label>
                             <Col >
-                                <Control.text model=".username" id="username" name="username" placeholder="Your Name" className="form-control" validators={{
+                                <Control.text model=".author" id="author" name="author" placeholder="Your Name" className="form-control" validators={{
                                     required, minLength: minLength(3), maxLength: maxLength(15)
                                 }} />
                                 <Errors
                                     className="text-danger"
-                                    model=".username"
+                                    model=".author"
                                     show="touched"
                                     messages={{
                                         required: 'Required',
@@ -59,7 +60,7 @@ function CommentForm() {
                         <Row className='form-group'>
                             <Label htmlFor='comment'>Comment</Label>
                             <Col>
-                                <Control.textarea model=".comment" id="addcomment" name="addcomment" className="form-control" cols={20} rows={9}/>
+                                <Control.textarea model=".comment" id="addcomment" name="addcomment" className="form-control" cols={20} rows={9} />
                             </Col>
 
                         </Row>
