@@ -4,26 +4,21 @@ import {
     CardTitle
 } from 'reactstrap';
 import CommentForm from './CommentFormComponent';
+import { Loading } from './LoadingComponent'
 
+function RenderDish({ dish, isLoading, errMess }) {
+    return (
+        <Card>
+            <CardImg top src={dish.image} alt={dish.name} />
+            <CardBody>
+                <CardTitle>{dish.name}</CardTitle>
+                <CardText>{dish.description}</CardText>
 
-function RenderDish({ dish }) {
-    if (dish != null)
-        return (
-            <Card>
-                <CardImg top src={dish.image} alt={dish.name} />
-                <CardBody>
-                    <CardTitle>{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-
-                </CardBody>
-            </Card>
-        );
-    else
-        return (
-            <div></div>
-        );
+            </CardBody>
+        </Card>
+    );
 }
-function RenderComments({ comments, store, dishId }) {
+function RenderComments({ comments, dishId }) {
     if (comments.length !== 0) {
         const comm = comments.map((C) => {
             return (
@@ -37,7 +32,7 @@ function RenderComments({ comments, store, dishId }) {
             <Card>
                 <h4>Comments</h4>
                 <ul className='list-unstyled'>{comm}</ul>
-                <CommentForm store={store} dishId={dishId} />
+                <CommentForm dishId={dishId} />
             </Card>
         );
     }
@@ -48,22 +43,39 @@ function RenderComments({ comments, store, dishId }) {
     }
 }
 function DishDetail(props) {
-    return (
-        <div className='container'>
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    <RenderDish dish={props.dish} />
+    console.log(props);
+
+    if (props.isLoading)
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
                 </div>
-                <div className="col-12 col-md-5 m-1">
-                    <RenderComments comments={props.comments} store={props.store} dishId={props.dishId} />
-                    <br />
+            </div>
+        );
+    else if (props.errMess)
+        return (
+            <div className='cotainer'>
+                <h3>{props.errMess}</h3>
+            </div>
+        );
+    else if (props.dish != null)
+        return (
+            <div className='container'>
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        <RenderDish dish={props.dish} isLoading={props.isLoading} errMess={props.errMess} />
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        <RenderComments comments={props.comments} dishId={props.dishId} />
+                        <br />
+
+                    </div>
 
                 </div>
 
             </div>
-
-        </div>
-    );
+        );
 }
 
 export default DishDetail

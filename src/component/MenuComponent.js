@@ -4,7 +4,8 @@ import {
     CardTitle, Breadcrumb, BreadcrumbItem
 } from 'reactstrap';
 import { Link } from 'react-router-dom'
-function RenderCardComponent({ dish, onClick }) {
+import { Loading } from './LoadingComponent'
+function RenderCardComponent({ dish }) {
     return (
         <div className="col-12 col-md-5 m-1">
             <Card key={dish.id}>
@@ -24,24 +25,39 @@ function Menu(props) {
             <RenderCardComponent dish={dish} />
         );
     });
-    return (
-        <div className="container">
-            <div className='row'>
-                <Breadcrumb>
-                    <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-                    <BreadcrumbItem active>Menu</BreadcrumbItem>
-                </Breadcrumb>
-                <div className='=' col-12>
-                    <h3>Menu</h3>
-                    <hr />
+    if (props.isLoading)
+        return (
+            <div className="container">
+                <div className="row">
+                    <Loading />
                 </div>
             </div>
-            <div className="row">
-                {menu}
+        );
+    else if (props.errMess != null)
+        return (
+            <div className='cotainer'>
+                <h3>{props.errMess}</h3>
             </div>
-        </div>
+        );
+    else
+        return (
+            <div className="container">
+                <div className='row'>
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>Menu</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className='=' col-12>
+                        <h3>Menu</h3>
+                        <hr />
+                    </div>
+                </div>
+                <div className="row">
+                    {menu}
+                </div>
+            </div>
 
-    );
+        );
 }
 
 
