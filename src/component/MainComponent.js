@@ -9,20 +9,25 @@ import About from './AboutComponent'
 import { useSelector } from 'react-redux';
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
-import { fetchDishes } from '../Redux/ActionCreator';
+import { fetchDishes, fetchComments, fetchPromos } from '../Redux/ActionCreator';
 
 function Main() {
   var dispatch = useDispatch();
   useEffect(() => {
     console.log("in use efffect");
     dispatch(fetchDishes());
+    dispatch(fetchComments());
+    dispatch(fetchPromos());
   }, []);
 
   var dishes = useSelector((state) => state.dishes.dishes);
   var isLoading = useSelector((state) => state.dishes.isLoading);
+  var isPromosLoading = useSelector((state) => state.promotions.isLoading);
+  var promosErrMess = useSelector((state) => state.promotions.errMess);
+  var commentsErrMess = useSelector((state) => state.comments.errMess);
   var errMess = useSelector((state) => state.dishes.errmess);
-  var comments = useSelector((state) => state.comments);
-  var promotions = useSelector((state) => state.promotions);
+  var comments = useSelector((state) => state.comments.comments);
+  var promotions = useSelector((state) => state.promotions.promotions);
   var leaders = useSelector((state) => state.leaders);
 
   const HomePage = () => {
@@ -32,6 +37,9 @@ function Main() {
       <Home
         dish={dishes.filter((dish) => dish.featured === true)[0]}
         promotion={promotions.filter((promo) => promo.featured === true)[0]}
+        isPromosLoading={isPromosLoading}
+        promosErrMess={promosErrMess}
+        commentsErrMess={commentsErrMess}
         leader={leaders.filter((leader) => leader.featured === true)[0]}
         isLoading={isLoading}
         errMess={errMess}
@@ -49,6 +57,7 @@ function Main() {
         dishId={dishId}
         isLoading={isLoading}
         errMess={errMess}
+        commentsErrMess={commentsErrMess}
       />
     );
 
