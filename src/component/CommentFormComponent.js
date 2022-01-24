@@ -18,7 +18,8 @@ function CommentForm(props) {
         setCommentCommentstate({ ...Commentstate, isCommentModalOpen: !currModal });
     }
     function handleCommentSubmit(values) {
-        dispatch(addComment(props.dishId, values.rate, values.author, values.comment));
+        
+        dispatch(addComment(parseInt(props.dishId), values.rate, values.author, values.comment));
     }
     return (
         <div>

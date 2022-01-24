@@ -43,6 +43,7 @@ function RenderComments({ comments, dishId }) {
     }
 }
 function DishDetail(props) {
+    console.log("Props in dishdetails");
     console.log(props);
 
     if (props.isLoading)
