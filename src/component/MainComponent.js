@@ -14,7 +14,6 @@ import { fetchDishes, fetchComments, fetchPromos } from '../Redux/ActionCreator'
 function Main() {
   var dispatch = useDispatch();
   useEffect(() => {
-    console.log("in use efffect");
     dispatch(fetchDishes());
     dispatch(fetchComments());
     dispatch(fetchPromos());
@@ -25,14 +24,12 @@ function Main() {
   var isPromosLoading = useSelector((state) => state.promotions.isLoading);
   var promosErrMess = useSelector((state) => state.promotions.errMess);
   var commentsErrMess = useSelector((state) => state.comments.errMess);
-  var errMess = useSelector((state) => state.dishes.errmess);
+  var errMess = useSelector((state) => state.dishes.errMess);
   var comments = useSelector((state) => state.comments.comments);
   var promotions = useSelector((state) => state.promotions.promotions);
   var leaders = useSelector((state) => state.leaders);
 
   const HomePage = () => {
-    console.log("loading home");
-    console.log(dishes);
     return (
       <Home
         dish={dishes.filter((dish) => dish.featured === true)[0]}
@@ -48,8 +45,6 @@ function Main() {
   }
   const DishWithId = () => {
     const { dishId } = useParams();
-    console.log("loading dishDetail");
-    console.log(dishes);
     return (
       <DishDetail
         dish={dishes.filter((dish) => dish.id === parseInt(dishId, 10))[0]}
